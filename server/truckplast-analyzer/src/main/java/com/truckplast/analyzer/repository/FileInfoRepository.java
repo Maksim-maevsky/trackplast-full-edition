@@ -1,13 +1,10 @@
 package com.truckplast.analyzer.repository;
 
 import com.truckplast.analyzer.entity.FileInfo;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.UUID;
 
-public interface FileInfoRepository {
-
-    int[] saveAll(List<FileInfo> fileInfoList);
-
-    int save(FileInfo fileInfo);
+public interface FileInfoRepository extends JpaRepository<FileInfo, UUID> {
 
 }

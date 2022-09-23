@@ -11,17 +11,21 @@ import com.truckplast.analyzer.entity.part.PartStorage;
 import com.truckplast.analyzer.exeption_handler.exception.EmptyFileNotFoundException;
 import com.truckplast.analyzer.exeption_handler.exception.WorkBookCreationIOException;
 import com.truckplast.analyzer.exeption_handler.exception.WrongPartStorageKeyException;
-import com.truckplast.analyzer.repository.*;
+import com.truckplast.analyzer.repository.BrandRepository;
+import com.truckplast.analyzer.repository.FileInfoRepository;
+import com.truckplast.analyzer.repository.PartInfoRepository;
+import com.truckplast.analyzer.repository.PartRepository;
 import com.truckplast.analyzer.service.file.FileParserService;
 import com.truckplast.analyzer.util.FileUtil;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,29 +43,25 @@ public class FileParserServiceImpl implements FileParserService {
 
     private final PartInfoRepository partInfoRepository;
 
-    private final TransactionPartRepository transactionPartRepository;
-
     private final FileInfoRepository fileInfoRepository;
 
     private final PartRepository partRepository;
 
     private final BrandRepository brandRepository;
 
+
     @Value("${file.path}")
     private String filePath;
 
-
     @Transactional
     @Override
-    public void parsAndSave(List<FileInfo> fileInfoList, UUID mailInfoId) {
+    public void parsAndSave(FileInfo fileInfo, UUID mailInfoId) {
 
         log.info("Try to pars MailInfo");
-        fileInfoList.parallelStream().forEach(fileInfo -> {
-            parsFileInfos(fileInfo);
-            fileInfo.setMailInfoId(mailInfoId);
-            fileInfoRepository.save(fileInfo);
-        });
 
+        parsFileInfos(fileInfo);
+        fileInfo.setMailInfoId(mailInfoId);
+        fileInfoRepository.save(fileInfo);
 
     }
 
@@ -77,7 +77,6 @@ public class FileParserServiceImpl implements FileParserService {
 
         List<PartInfo> parts = tryToGetPartInfoList(partStorage, file);
         deletePreviousPartsAndSaveCurrent(parts, partStorage.getId());
-        fileInfo.setId(UUID.randomUUID());
 
     }
 
@@ -88,15 +87,14 @@ public class FileParserServiceImpl implements FileParserService {
 
     private void deletePreviousPartsAndSaveCurrent(List<PartInfo> partInfoList, short partStorageId) {
 
-        partInfoRepository.delete(partStorageId);
+        partInfoRepository.deleteByPartStorageId(partStorageId);
         partInfoRepository.saveAll(partInfoList);
-        transactionPartRepository.saveAll(partInfoList);
 
     }
 
     private List<PartInfo> tryToGetPartInfoList(PartStorage partStorage, File file) {
 
-        List<PartInfo> parts = new ArrayList<>();
+        List<PartInfo> partInfos = new ArrayList<>();
 
         log.info("Parse file rows.");
 
@@ -104,9 +102,9 @@ public class FileParserServiceImpl implements FileParserService {
 
              Workbook workbook = WorkbookFactory.create(fileStream)) {
 
-            iterateAllRows(partStorage, parts, workbook);
+            iterateAllRows(partStorage, partInfos, workbook);
 
-            return parts;
+            return partInfos;
 
         } catch (FileNotFoundException e) {
 
@@ -123,10 +121,10 @@ public class FileParserServiceImpl implements FileParserService {
         }
     }
 
-    private void iterateAllRows(PartStorage partStorage, List<PartInfo> parts, Workbook workbook) {
+    @SneakyThrows
+    private void iterateAllRows(PartStorage partStorage, List<PartInfo> partInfos, Workbook workbook) {
 
         Sheet firstSheet = workbook.getSheetAt(ParserConstant.FIRST_SHEET);
-
         Map<String, Brand> brandMap = new HashMap<>();
 
         for (int currentRow = 0; currentRow < firstSheet.getLastRowNum(); currentRow++) {
@@ -135,29 +133,21 @@ public class FileParserServiceImpl implements FileParserService {
 
             Row nextRow = firstSheet.getRow(currentRow);
 
-
             PartInfo partInfo = iterateOneRowAndGetPart(brandMap, nextRow);
+
 
             if (partInfo != null) {
 
-                setPartStorageIdAndId(partStorage, partInfo);
-                parts.add(partInfo);
-            }
+                partInfo.setPartStorage(partStorage);
+                partInfos.add(partInfo);
 
+            }
         }
     }
 
     private boolean isFirstRow(int currentRow) {
 
         return currentRow == ParserConstant.FIRST_ROW;
-
-    }
-
-    private void setPartStorageIdAndId(PartStorage partStorage, PartInfo part) {
-
-        part.setPartStorageId(partStorage.getId());
-        part.setId(UUID.randomUUID());
-
 
     }
 
@@ -203,7 +193,7 @@ public class FileParserServiceImpl implements FileParserService {
 
         } else {
 
-            Optional<Brand> optionalBrand = brandRepository.getByName(brandNameFromFile);
+            Optional<Brand> optionalBrand = brandRepository.findByName(brandNameFromFile);
 
             if (optionalBrand.isPresent()) {
 
@@ -214,31 +204,48 @@ public class FileParserServiceImpl implements FileParserService {
 
                 log.error("Brand " + brandNameFromFile + " is no present.");
 
-                return null;
+                checkedBrand = brandRepository.save(new Brand(brandNameFromFile));
+                brandMap.put(checkedBrand.getName(), checkedBrand);
+
+                log.info("Brand " + brandNameFromFile + " was saved.");
+
             }
         }
 
         partInfo.getPart().setBrand(checkedBrand);
-        checkPartIdAndSetInfo(partInfo.getPart());
+        checkPartIdAndSetInfo(partInfo);
 
         return partInfo;
 
     }
 
-    private void checkPartIdAndSetInfo(Part part) {
 
-        Optional<UUID> id = partRepository.getIdByCodeAndBrand(part.getCode(), part.getBrand().getName());
+    private void checkPartIdAndSetInfo(PartInfo partInfo) {
 
-        if (id.isPresent()) {
+        Optional<Part> optionalPart = partRepository.findByCodeAndAndBrandName(partInfo.getPart().getCode(), partInfo.getPart().getBrand().getName());
 
-            part.setId(id.get());
+        if (optionalPart.isPresent()) {
+
+            partInfo.setPart(optionalPart.get());
 
         } else {
 
-            part.setCreateDate(LocalDateTime.now());
-            part.setId(UUID.randomUUID());
+            partInfo.getPart().setCreateDate(LocalDateTime.now());
 
-            partRepository.save(part);
+            Part part = partInfo.getPart();
+            part = partRepository.save(part);
+            partInfo.setPart(part);
+
+        }
+
+        if(partInfo.getPart().getId() == null){
+
+
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         }
     }
@@ -249,6 +256,7 @@ public class FileParserServiceImpl implements FileParserService {
 
             case 0:
                 partInfo.getPart().setCode(cell.getStringCellValue());
+                partInfo.getPart().setCreateDate(LocalDateTime.now());
                 break;
 
             case 1:
@@ -260,8 +268,10 @@ public class FileParserServiceImpl implements FileParserService {
                 break;
 
             case 3:
+                break;
 
             case 4:
+                partInfo.setPrice(cell.getNumericCellValue());
                 break;
 
             case 5:

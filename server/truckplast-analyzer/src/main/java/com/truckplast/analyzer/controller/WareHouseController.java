@@ -1,6 +1,7 @@
 package com.truckplast.analyzer.controller;
 
 import com.truckplast.analyzer.dto.PartStorageDto;
+import com.truckplast.analyzer.dto.PartStorageInfoDto;
 import com.truckplast.analyzer.service.PartStorageService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.Data;
@@ -24,5 +25,12 @@ public class WareHouseController {
     public List<PartStorageDto> differenceBetweenWarehouses() {
 
         return partStorageService.getPartStorageDtoList();
+    }
+
+    @Operation(summary = "Get all warehouses with additional info")
+    @GetMapping("/info")
+    public List<PartStorageInfoDto> getStorageInfo() {
+
+        return partStorageService.getStorageInfo();
     }
 }

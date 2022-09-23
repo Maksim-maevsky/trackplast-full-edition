@@ -1,10 +1,11 @@
 package com.truckplast.analyzer.repository;
 
 import com.truckplast.analyzer.entity.MailInfo;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.UUID;
 
-public interface MailInfoRepository {
+public interface MailInfoRepository extends JpaRepository<MailInfo, UUID> {
 
-    int[] saveAll(List<MailInfo> mailInfoList);
+
 }

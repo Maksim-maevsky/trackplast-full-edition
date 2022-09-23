@@ -1,7 +1,6 @@
 package com.truckplast.analyzer.service.mail.impl;
 
 
-import com.truckplast.analyzer.entity.FileInfo;
 import com.truckplast.analyzer.entity.MailInfo;
 import com.truckplast.analyzer.repository.MailInfoRepository;
 import com.truckplast.analyzer.service.file.FileInfoService;
@@ -47,7 +46,6 @@ public class MailInfoServiceImpl implements MailInfoService {
     }
 
     @Override
-    @Transactional
     public void saveAll(List<MailInfo> mailInfoList) {
 
         log.info("Save mailInfoList.");
@@ -91,7 +89,6 @@ public class MailInfoServiceImpl implements MailInfoService {
         log.info("Set date and Id to mailInfoList.");
 
         mailInfo.setDateTime(LocalDateTime.now());
-        mailInfo.setId(UUID.randomUUID());
 
     }
 }

@@ -27,6 +27,7 @@ public class MailCheckerFacadeImpl implements MailCheckerFacade {
 
     private final MailInfoService mailInfoService;
 
+
     @Override
     public void checkEmailAndSaveInfo() {
 
@@ -36,9 +37,10 @@ public class MailCheckerFacadeImpl implements MailCheckerFacade {
         mailInfoList.parallelStream().forEach(mailInfo -> {
 
             List<FileInfo> fileInfos = fileInfoService.iterateMimeBodyParts(mailInfo.getMultipart());
-            fileParserService.parsAndSave(fileInfos, mailInfo.getId());
+            fileInfos.stream().forEach(fileInfo -> fileParserService.parsAndSave(fileInfo, mailInfo.getId()));
 
         });
+
         mailCheckerService.closeFolder();
     }
 }

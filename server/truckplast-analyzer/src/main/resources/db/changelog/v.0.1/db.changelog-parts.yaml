@@ -64,6 +64,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: price
+                  type: DECIMAL
+                  constraints:
+                    nullable: false
+              - column:
                   name: create_date
                   type: TIMESTAMP
                   constraints:
@@ -189,7 +194,7 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseColumnNames: part_id
             baseTableName: part_infos
-            constraintName: fk_part_info_part
+            constraintName: fk_parts_part_info
             referencedColumnNames: id
             referencedTableName: parts
 
@@ -240,4 +245,13 @@ databaseChangeLog:
         sqlFile:
           dbms:  'postgresql'
           path:  db\changelog\v.0.1\sql-import\import-part-storage.sql
+          stripComments:  true
+
+  - changeSet:
+      id: 14062022-add-brands-data
+      author: maksim_maevsky
+      changes:
+        sqlFile:
+          dbms:  'postgresql'
+          path:  db\changelog\v.0.1\sql-import\import-brands.sql
           stripComments:  true

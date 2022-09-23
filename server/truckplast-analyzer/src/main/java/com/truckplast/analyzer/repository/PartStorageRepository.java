@@ -1,10 +1,8 @@
 package com.truckplast.analyzer.repository;
 
 import com.truckplast.analyzer.entity.part.PartStorage;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface PartStorageRepository extends JpaRepository<PartStorage, Short> {
 
-public interface PartStorageRepository {
-
-    List<PartStorage> getAll();
 }

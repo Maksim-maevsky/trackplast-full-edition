@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface FileParserService {
 
-    void parsAndSave(List<FileInfo> fileInfoList, UUID mailInfoId);
+    void parsAndSave(FileInfo fileInfo, UUID mailInfoId);
 
 }

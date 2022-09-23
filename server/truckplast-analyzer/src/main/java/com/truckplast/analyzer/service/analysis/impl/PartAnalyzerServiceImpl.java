@@ -4,8 +4,12 @@ package com.truckplast.analyzer.service.analysis.impl;
 import com.truckplast.analyzer.entity.part.PartInfo;
 import com.truckplast.analyzer.pojo.RefillResponse;
 import com.truckplast.analyzer.pojo.RefillResult;
+import com.truckplast.analyzer.repository.PartInfoRepository;
 import com.truckplast.analyzer.service.analysis.PartAnalyzerService;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +19,9 @@ import java.util.*;
 @Service
 @Data
 @Slf4j
+@RequiredArgsConstructor
 public class PartAnalyzerServiceImpl implements PartAnalyzerService {
+
 
     @Override
     public RefillResult getRefillPartStorageInfo(RefillResponse refillResponse) {
@@ -49,7 +55,7 @@ public class PartAnalyzerServiceImpl implements PartAnalyzerService {
         refillResponse
                 .getCurrentPartStorageInfo()
                 .getPartList()
-                .parallelStream().forEach(currentPart -> iterateByTargetPartDtoListAndSetToResultPartDtoList(refillResponse, resultPartInfoDtoList, currentPart));
+                .forEach(currentPart -> iterateByTargetPartDtoListAndSetToResultPartDtoList(refillResponse, resultPartInfoDtoList, currentPart));
 
         return resultPartInfoDtoList;
     }
