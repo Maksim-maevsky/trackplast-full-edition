@@ -237,17 +237,6 @@ public class FileParserServiceImpl implements FileParserService {
             partInfo.setPart(part);
 
         }
-
-        if(partInfo.getPart().getId() == null){
-
-
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        }
     }
 
     private void getAndSetCellTypeToPart(Cell cell, PartInfo partInfo, short column) {

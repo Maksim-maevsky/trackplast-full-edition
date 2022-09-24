@@ -1,24 +1,20 @@
 import React from 'react';
 import './App.css';
-import {ApplicationBar} from "./component/ApplicationBar";
-import {StoragesTable} from "./component/StoragesTable";
+import StorageInfoPage from "./pages/StorageInfoPage";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import AboutPage from "./pages/AboutPage";
 
 
 function App() {
 
+
     return (
-        <>
-            <ApplicationBar/>
-
-            <main style={{
-                display: 'flex',
-                marginTop: 150,
-                justifyContent: 'center'
-            }}>
-                <StoragesTable/>
-            </main>
-
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/storage" element={<StorageInfoPage/>}/>
+                <Route path="/about"element={ <AboutPage/>}/>
+            </Routes>
+        </BrowserRouter>
     );
 }
 
