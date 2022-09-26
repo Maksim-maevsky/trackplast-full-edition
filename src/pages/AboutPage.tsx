@@ -1,25 +1,19 @@
 import React from 'react';
-import {Paper} from "@mui/material";
+import FooterComponent from "../component/FooterComponent";
+import {MainBlockAboutPageStyle, InternalBlockAboutPageStyle, AboutTextStyle} from "../styles/styles"
+import {TextAbout} from "../constant/constants";
 
 const AboutPage = () => {
 
-    const textAbout = 'Создан для внутреннего польщования сотрудников,\n' +
-        '        повышения производительсти и оптимизации процессов\n' +
-        '        в компании';
-
     return (
-        <div style={{
-
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 150
-
-        }}>
-            <Paper>
-                <strong>{textAbout}</strong>
-            </Paper>
-        </div>
+        <>
+            <div style={MainBlockAboutPageStyle}>
+                <div style={InternalBlockAboutPageStyle}>
+                    <strong style={AboutTextStyle}>{TextAbout}</strong>
+                </div>
+            </div>
+            <FooterComponent/>
+        </>
     );
 };
 

@@ -7,8 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {PartStorage, PartStorageInfo} from "../pojo/types";
-import axios from "axios";
+import {PartStorageInfo} from "../pojo/types";
 
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -36,7 +35,7 @@ const logoStyles = {
 
 }
 
-export interface IPartStorageInfo  {
+export interface IPartStorageInfo {
 
     partStorageInfo: PartStorageInfo[]
 

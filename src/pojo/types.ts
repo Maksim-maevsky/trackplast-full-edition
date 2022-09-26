@@ -11,4 +11,18 @@ export type PartStorageInfo = {
     volumeAtALowPrice: number
 }
 
+export type VictoryPieObj = {
+
+    x: string,
+    y: number
+
+}
+
+export type VictoryPieProps = {
+
+    pieObj: VictoryPieObj[]
+
+}
+
+
 
