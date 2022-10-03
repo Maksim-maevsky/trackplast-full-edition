@@ -3,17 +3,24 @@ import {VictoryPie} from 'victory';
 import {VictoryPieProps} from "../pojo/types";
 
 
-const PieChart = (props: VictoryPieProps) => {
+const PieChart = (pieData: VictoryPieProps) => {
 
-    const colorArray = ["tomato", "orange", "gold", "cyan", "navy"]
+    const colorArray = ["tomato", "#8cc3ffff", "#668070ff", "cyan", "navy"]
 
     return (
+
         <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             height: 250,
-            width: 350
+            width: 400
         }}>
 
-            <VictoryPie data={props.pieObj} colorScale={colorArray}/>
+            <h4 style={{
+                marginBottom: 5
+            }}> {pieData.name} </h4>
+            <VictoryPie data={pieData.pieObj} colorScale={colorArray}/>
 
         </div>
     );

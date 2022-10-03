@@ -4,14 +4,18 @@ import {MainBlockAboutPageStyle, InternalBlockAboutPageStyle, AboutTextStyle} fr
 import {TextAbout} from "../common/constant/constants";
 import {ApplicationBar} from "../component/ApplicationBar";
 
-const AboutPage = () => {
+const PaymentsPage = () => {
 
     return (
         <>
             <ApplicationBar/>
-            <div style={MainBlockAboutPageStyle}>
-                <div style={InternalBlockAboutPageStyle}>
-                    <strong style={AboutTextStyle}>{TextAbout}</strong>
+            <div style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "150px"
+            }}>
+                <div>
+                    <strong>"PAGE IN PROGRESS"</strong>
                 </div>
             </div>
             <FooterComponent/>
@@ -19,4 +23,4 @@ const AboutPage = () => {
     );
 };
 
-export default AboutPage;
+export default PaymentsPage;

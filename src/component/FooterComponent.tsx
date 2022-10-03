@@ -1,6 +1,6 @@
 import React from 'react';
-import {FooterTextStyle} from "../styles/styles";
-import {FooterText, FooterYearText} from "../constant/constants";
+import {FooterTextStyle} from "../common/styles/styles";
+import {FooterText, FooterYearText} from "../common/constant/constants";
 
 
 const FooterComponent = () => {

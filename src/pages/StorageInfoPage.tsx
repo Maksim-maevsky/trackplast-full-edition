@@ -43,18 +43,19 @@ const StorageInfoPage = () => {
 
 
     const storageAndPartCount: VictoryPieProps = {
-        pieObj: storageAndPartCountArray
+        pieObj: storageAndPartCountArray,
+        name: 'По ассотритменту'
     };
 
     const storageAndVolumeByLowPrice: VictoryPieProps = {
-        pieObj: storageAndVolumeByLowPriceArray
+        pieObj: storageAndVolumeByLowPriceArray,
+        name: 'По объему'
     };
 
 
     return (
         <>
             <ApplicationBar/>
-
             <MainComponent>
                 <StorageInfoTable partStorageInfo={storageInfo}/>
             </MainComponent>
@@ -62,10 +63,11 @@ const StorageInfoPage = () => {
             <div style={{
 
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                marginTop: 50
 
             }}>
-                <PieChart {...storageAndPartCount}/>
+                <PieChart {...storageAndPartCount} />
                 <PieChart {...storageAndVolumeByLowPrice}/>
             </div>
 

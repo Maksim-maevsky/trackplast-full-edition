@@ -20,7 +20,8 @@ export type VictoryPieObj = {
 
 export type VictoryPieProps = {
 
-    pieObj: VictoryPieObj[]
+    pieObj: VictoryPieObj[],
+    name: string
 
 }
 
