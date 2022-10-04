@@ -1,0 +1,149 @@
+databaseChangeLog:
+    - changeSet:
+        id: 03102022-create-users-table
+        author: bogdan_lopatenko
+        changes:
+          - createTable:
+              tableName: users
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                      unique: true
+                      primaryKey: true
+                - column:
+                    name: name
+                    type: VARCHAR(30)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: sur_name
+                    type: VARCHAR(30)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: mail_address
+                    type: VARCHAR(70)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: is_block
+                    type: BOOLEAN
+                    constraints:
+                      nullable: false
+
+
+    - changeSet:
+        id: 03102022-create-roles-table
+        author: bogdan_lopatenko
+        changes:
+          - createTable:
+              tableName: roles
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                      unique: true
+                - column:
+                    name: name
+                    type: VARCHAR(20)
+                    constraints:
+                      nullable: false
+
+
+    - changeSet:
+        id: 03102022-create-positions-table
+        author: bogdan_lopatenko
+        changes:
+          - createTable:
+              tableName: positions
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                      unique: true
+                      primaryKey: true
+                - column:
+                    name: name
+                    type: VARCHAR(40)
+                    constraints:
+                      nullable: false
+
+
+    - changeSet:
+        id: 03102022-create-user-info-table
+        author: bogdan_lopatenko
+        changes:
+          - createTable:
+              tableName: user_info
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                      unique: true
+                      primaryKey: true
+                - column:
+                    name: user_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                - column:
+                    name: role_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                - column:
+                    name: position_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+
+    - changeSet:
+        id: 03102022-add-ForeignKeyConstraint-users-to-user-info
+        author: bogdan_lopatenko
+        changes:
+          - addForeignKeyConstraint:
+              baseColumnNames: user_id
+              baseTableName: user_info
+              constraintName: fk_user_info_user
+              referencedColumnNames: id
+              referencedTableName: users
+
+    - changeSet:
+        id: 03102022-add-ForeignKeyConstraint-roles-to-user-info
+        author: bogdan_lopatenko
+        changes:
+          - addForeignKeyConstraint:
+              baseColumnNames: role_id
+              baseTableName: user_info
+              constraintName: fk_roles_info_user
+              referencedColumnNames: id
+              referencedTableName: roles
+
+    - changeSet:
+        id: 03102022-add-ForeignKeyConstraint-positions-to-user-info
+        author: bogdan_lopatenko
+        changes:
+          - addForeignKeyConstraint:
+              baseColumnNames: position_id
+              baseTableName: user_info
+              constraintName: fk_positions_info_user
+              referencedColumnNames: id
+              referencedTableName: positions
+
+    - changeSet:
+        id: 03102022-add-unique-constraint-users-roles-positions-to-user-info
+        author: bogdan_lopatenko
+        changes:
+          - addUniqueConstraint:
+              columnNames: user_id, role_id, position_id
+              constraintName: const_user_role_position_id_user_info
+              tableName: user_info

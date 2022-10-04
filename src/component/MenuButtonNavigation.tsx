@@ -25,7 +25,7 @@ export default function MenuButtonNavigation() {
             <BottomNavigationAction
                 label="Home"
                 value="home"
-                icon={<AssessmentIcon style={buttonColor}/>}
+                icon={<HouseIcon style={buttonColor}/>}
                 onClick={() => {
                     navigate("/");
                 }}
