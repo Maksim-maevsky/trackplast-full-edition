@@ -29,10 +29,16 @@ databaseChangeLog:
                     constraints:
                       nullable: false
                 - column:
+                    name: position_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                - column:
                     name: is_block
                     type: BOOLEAN
                     constraints:
                       nullable: false
+
 
 
     - changeSet:
@@ -77,11 +83,11 @@ databaseChangeLog:
 
 
     - changeSet:
-        id: 03102022-create-user-info-table
+        id: 03102022-create-user-role-table
         author: bogdan_lopatenko
         changes:
           - createTable:
-              tableName: user_info
+              tableName: user_role
               columns:
                 - column:
                     name: id
@@ -100,50 +106,45 @@ databaseChangeLog:
                     type: BIGINT
                     constraints:
                       nullable: false
-                - column:
-                    name: position_id
-                    type: BIGINT
-                    constraints:
-                      nullable: false
 
     - changeSet:
-        id: 03102022-add-ForeignKeyConstraint-users-to-user-info
-        author: bogdan_lopatenko
-        changes:
-          - addForeignKeyConstraint:
-              baseColumnNames: user_id
-              baseTableName: user_info
-              constraintName: fk_user_info_user
-              referencedColumnNames: id
-              referencedTableName: users
-
-    - changeSet:
-        id: 03102022-add-ForeignKeyConstraint-roles-to-user-info
-        author: bogdan_lopatenko
-        changes:
-          - addForeignKeyConstraint:
-              baseColumnNames: role_id
-              baseTableName: user_info
-              constraintName: fk_roles_info_user
-              referencedColumnNames: id
-              referencedTableName: roles
-
-    - changeSet:
-        id: 03102022-add-ForeignKeyConstraint-positions-to-user-info
+        id: 03102022-add-ForeignKeyConstraint-positions-to-users
         author: bogdan_lopatenko
         changes:
           - addForeignKeyConstraint:
               baseColumnNames: position_id
-              baseTableName: user_info
-              constraintName: fk_positions_info_user
+              baseTableName: users
+              constraintName: fk_user_positions
               referencedColumnNames: id
               referencedTableName: positions
 
     - changeSet:
-        id: 03102022-add-unique-constraint-users-roles-positions-to-user-info
+        id: 03102022-add-ForeignKeyConstraint-users-to-user-role
+        author: bogdan_lopatenko
+        changes:
+          - addForeignKeyConstraint:
+              baseColumnNames: user_id
+              baseTableName: user_role
+              constraintName: fk_user_role_users
+              referencedColumnNames: id
+              referencedTableName: users
+
+    - changeSet:
+        id: 03102022-add-ForeignKeyConstraint-roles-to-user-role
+        author: bogdan_lopatenko
+        changes:
+          - addForeignKeyConstraint:
+              baseColumnNames: role_id
+              baseTableName: user_role
+              constraintName: fk_user_role_roles
+              referencedColumnNames: id
+              referencedTableName: roles
+
+    - changeSet:
+        id: 03102022-add-unique-constraint-users-roles-to-user-role
         author: bogdan_lopatenko
         changes:
           - addUniqueConstraint:
-              columnNames: user_id, role_id, position_id
-              constraintName: const_user_role_position_id_user_info
-              tableName: user_info
+              columnNames: user_id, role_id
+              constraintName: const_user_role
+              tableName: user_role

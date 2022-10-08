@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "positions")
@@ -21,6 +20,4 @@ public class Position {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "position")
-    private Set<User> users;
 }

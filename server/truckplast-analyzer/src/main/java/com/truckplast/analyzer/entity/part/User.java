@@ -27,17 +27,12 @@ public class User {
     @Column(name = "mail_address")
     private String mailAddress;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinTable(
-            name = "user_info",
-            joinColumns = {@JoinColumn(name = "position_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
-    )
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Position position;
 
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "user_info",
+            name = "user_role",
             joinColumns = {@JoinColumn(name = "role_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )

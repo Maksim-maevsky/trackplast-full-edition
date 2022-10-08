@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_info")
+@Table(name = "user_role")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfo {
+public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,4 @@ public class UserInfo {
 
     @Column(name = "role_id")
     private Long roleId;
-
-    @Column(name = "position_id")
-    private Long positionId;
 }
