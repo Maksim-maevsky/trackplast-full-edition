@@ -51,6 +51,7 @@ databaseChangeLog:
                 - column:
                     name: id
                     type: BIGINT
+                    autoIncrement: true
                     constraints:
                       nullable: false
                       unique: true
@@ -71,6 +72,7 @@ databaseChangeLog:
                 - column:
                     name: id
                     type: BIGINT
+                    autoIncrement: true
                     constraints:
                       nullable: false
                       unique: true

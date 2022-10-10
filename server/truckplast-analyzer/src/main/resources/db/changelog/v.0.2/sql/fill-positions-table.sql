@@ -1,9 +1,9 @@
-INSERT INTO positions (id, name) VALUES (1, 'DIRECTOR');
-INSERT INTO positions (id, name) VALUES (2, 'SUPERVISOR');
-INSERT INTO positions (id, name) VALUES (3, 'MANAGER');
-INSERT INTO positions (id, name) VALUES (4, 'DRIVER');
-INSERT INTO positions (id, name) VALUES (5, 'WAREHOUSE EMPLOYEE');
-INSERT INTO positions (id, name) VALUES (6, 'EMPLOYEE');
-INSERT INTO positions (id, name) VALUES (7, 'BOOKKEEPER');
-INSERT INTO positions (id, name) VALUES (8, 'LOGIST');
-INSERT INTO positions (id, name) VALUES (9, 'WAREHOUSE MANAGER');
+INSERT INTO positions (name) VALUES ('DIRECTOR');
+INSERT INTO positions (name) VALUES ('SUPERVISOR');
+INSERT INTO positions (name) VALUES ('MANAGER');
+INSERT INTO positions (name) VALUES ('DRIVER');
+INSERT INTO positions (name) VALUES ('WAREHOUSE EMPLOYEE');
+INSERT INTO positions (name) VALUES ('EMPLOYEE');
+INSERT INTO positions (name) VALUES ('BOOKKEEPER');
+INSERT INTO positions (name) VALUES ('LOGIST');
+INSERT INTO positions (name) VALUES ('WAREHOUSE MANAGER');
