@@ -1,0 +1,153 @@
+databaseChangeLog:
+    - changeSet:
+        id: 03102022-create-users-table
+        author: bogdan_lopatenko
+        changes:
+          - createTable:
+              tableName: users
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    autoIncrement: true
+                    constraints:
+                      nullable: false
+                      unique: true
+                      primaryKey: true
+                - column:
+                    name: name
+                    type: VARCHAR(30)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: sur_name
+                    type: VARCHAR(30)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: mail_address
+                    type: VARCHAR(70)
+                    constraints:
+                      nullable: false
+                - column:
+                    name: position_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                - column:
+                    name: is_block
+                    type: BOOLEAN
+                    constraints:
+                      nullable: false
+
+
+
+    - changeSet:
+        id: 03102022-create-roles-table
+        author: bogdan_lopatenko
+        changes:
+          - createTable:
+              tableName: roles
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    autoIncrement: true
+                    constraints:
+                      nullable: false
+                      unique: true
+                - column:
+                    name: name
+                    type: VARCHAR(50)
+                    constraints:
+                      nullable: false
+
+
+    - changeSet:
+        id: 03102022-create-positions-table
+        author: bogdan_lopatenko
+        changes:
+          - createTable:
+              tableName: positions
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    autoIncrement: true
+                    constraints:
+                      nullable: false
+                      unique: true
+                      primaryKey: true
+                - column:
+                    name: name
+                    type: VARCHAR(50)
+                    constraints:
+                      nullable: false
+
+
+    - changeSet:
+        id: 03102022-create-user-role-table
+        author: bogdan_lopatenko
+        changes:
+          - createTable:
+              tableName: user_role
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                      unique: true
+                      primaryKey: true
+                - column:
+                    name: user_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                - column:
+                    name: role_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+
+    - changeSet:
+        id: 03102022-add-ForeignKeyConstraint-positions-to-users
+        author: bogdan_lopatenko
+        changes:
+          - addForeignKeyConstraint:
+              baseColumnNames: position_id
+              baseTableName: users
+              constraintName: fk_user_positions
+              referencedColumnNames: id
+              referencedTableName: positions
+
+    - changeSet:
+        id: 03102022-add-ForeignKeyConstraint-users-to-user-role
+        author: bogdan_lopatenko
+        changes:
+          - addForeignKeyConstraint:
+              baseColumnNames: user_id
+              baseTableName: user_role
+              constraintName: fk_user_role_users
+              referencedColumnNames: id
+              referencedTableName: users
+
+    - changeSet:
+        id: 03102022-add-ForeignKeyConstraint-roles-to-user-role
+        author: bogdan_lopatenko
+        changes:
+          - addForeignKeyConstraint:
+              baseColumnNames: role_id
+              baseTableName: user_role
+              constraintName: fk_user_role_roles
+              referencedColumnNames: id
+              referencedTableName: roles
+
+    - changeSet:
+        id: 03102022-add-unique-constraint-users-roles-to-user-role
+        author: bogdan_lopatenko
+        changes:
+          - addUniqueConstraint:
+              columnNames: user_id, role_id
+              constraintName: const_user_role
+              tableName: user_role
