@@ -22,25 +22,25 @@ public class UserRoleController {
         return userRoleService.getAll();
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public UserRoleDto get(@PathVariable Long id){
 
-        return userRoleService.get(id);
+        return userRoleService.getById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public UserRoleDto create(@RequestBody UserRoleDto userRoleDto){
 
         return userRoleService.create(userRoleDto);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public UserRoleDto update(@RequestBody UserRoleDto userRoleDto){
 
         return userRoleService.update(userRoleDto);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
 
         userRoleService.delete(id);

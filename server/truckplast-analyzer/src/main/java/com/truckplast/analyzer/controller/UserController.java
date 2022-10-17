@@ -22,25 +22,25 @@ public class UserController {
         return userService.getAll();
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public UserDto get(@PathVariable Long id){
 
-        return userService.get(id);
+        return userService.getById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public UserDto create(@RequestBody UserDto userDto){
 
         return userService.create(userDto);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public UserDto update(@RequestBody UserDto userDto){
         
         return userService.update(userDto);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
 
         userService.delete(id);

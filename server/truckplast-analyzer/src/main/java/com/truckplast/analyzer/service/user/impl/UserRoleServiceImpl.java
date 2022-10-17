@@ -23,9 +23,9 @@ public class UserRoleServiceImpl implements UserRoleService {
 
 
     @Override
-    public UserRoleDto get(Long id) {
+    public UserRoleDto getById(Long id) {
 
-        UserRole userRole = userRoleRepository.findById(id).orElseThrow(() -> new UserRoleNotFoundException("User role not found."));
+        UserRole userRole = userRoleRepository.findById(id).orElseThrow(() -> new UserRoleNotFoundException("User role not founded."));
 
         return mapper.toUserRoleDto(userRole);
     }

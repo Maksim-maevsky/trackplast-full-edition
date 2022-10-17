@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RoleService {
 
-    RoleDto get(Long id);
+    RoleDto getById(Long id);
 
     List<RoleDto> getAll();
 

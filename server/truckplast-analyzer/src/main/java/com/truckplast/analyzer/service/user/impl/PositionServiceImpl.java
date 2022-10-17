@@ -24,9 +24,9 @@ public class PositionServiceImpl implements PositionService {
 
 
     @Override
-    public PositionDto get(Long id) {
+    public PositionDto getById(Long id) {
 
-        Position position = positionRepository.findById(id).orElseThrow(() -> new PositionNotFoundException("Position no found."));
+        Position position = positionRepository.findById(id).orElseThrow(() -> new PositionNotFoundException("Position no founded."));
 
         return mapper.toPositionDto(position);
     }

@@ -22,9 +22,9 @@ public class RoleServiceImpl implements RoleService {
     private final RoleMapper mapper;
 
     @Override
-    public RoleDto get(Long id) {
+    public RoleDto getById(Long id) {
 
-        Role role = roleRepository.findById(id).orElseThrow(() -> new RoleNotFoundException("Role not found."));
+        Role role = roleRepository.findById(id).orElseThrow(() -> new RoleNotFoundException("Role not founded."));
 
         return mapper.toRoleDto(role);
     }
