@@ -1,8 +1,6 @@
 package com.truckplast.analyzer.entity.part;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -40,5 +38,4 @@ public class User {
 
     @Column(name = "is_block")
     private boolean isBlock;
-
 }
