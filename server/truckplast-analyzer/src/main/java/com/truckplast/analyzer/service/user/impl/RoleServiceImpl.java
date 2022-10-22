@@ -1,7 +1,7 @@
 package com.truckplast.analyzer.service.user.impl;
 
 import com.truckplast.analyzer.dto.RoleDto;
-import com.truckplast.analyzer.entity.part.Role;
+import com.truckplast.analyzer.entity.Role;
 import com.truckplast.analyzer.exeption_handler.exception.RoleNotFoundException;
 import com.truckplast.analyzer.mapper.RoleMapper;
 import com.truckplast.analyzer.repository.RoleRepository;
@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Data
@@ -60,4 +61,18 @@ public class RoleServiceImpl implements RoleService {
 
         roleRepository.deleteById(id);
     }
+
+    public boolean isRolesExist(Set<RoleDto> roleDtoSet){
+
+        for (RoleDto role : roleDtoSet) {
+
+            if (roleRepository.findByName(role.getName()).isEmpty()){
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

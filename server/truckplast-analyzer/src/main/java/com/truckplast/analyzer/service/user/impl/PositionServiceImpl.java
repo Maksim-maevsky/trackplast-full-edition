@@ -2,7 +2,7 @@ package com.truckplast.analyzer.service.user.impl;
 
 
 import com.truckplast.analyzer.dto.PositionDto;
-import com.truckplast.analyzer.entity.part.Position;
+import com.truckplast.analyzer.entity.Position;
 import com.truckplast.analyzer.exeption_handler.exception.PositionNotFoundException;
 import com.truckplast.analyzer.mapper.PositionMapper;
 import com.truckplast.analyzer.repository.PositionRepository;
@@ -61,5 +61,10 @@ public class PositionServiceImpl implements PositionService {
     public void delete(Long id) {
 
         positionRepository.deleteById(id);
+    }
+
+    public boolean isPositionExist(PositionDto positionDto){
+
+        return positionRepository.findByName(positionDto.getName()).isPresent();
     }
 }

@@ -1,7 +1,7 @@
 package com.truckplast.analyzer.mapper;
 
 import com.truckplast.analyzer.dto.PositionDto;
-import com.truckplast.analyzer.entity.part.Position;
+import com.truckplast.analyzer.entity.Position;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;

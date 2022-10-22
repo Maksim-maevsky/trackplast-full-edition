@@ -1,7 +1,5 @@
 package com.truckplast.analyzer.dto;
 
-import com.truckplast.analyzer.entity.part.Position;
-import com.truckplast.analyzer.entity.part.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +19,9 @@ public class UserDto {
 
     private String mailAddress;
 
-    private Position position;
+    private PositionDto position;
 
-    private Set<Role> roles;
+    private Set<RoleDto> roles;
 
     private boolean isBlock;
 }

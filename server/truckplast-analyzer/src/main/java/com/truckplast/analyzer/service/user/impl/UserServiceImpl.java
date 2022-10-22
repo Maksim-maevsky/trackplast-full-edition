@@ -1,7 +1,7 @@
 package com.truckplast.analyzer.service.user.impl;
 
 import com.truckplast.analyzer.dto.UserDto;
-import com.truckplast.analyzer.entity.part.User;
+import com.truckplast.analyzer.entity.User;
 import com.truckplast.analyzer.exeption_handler.exception.UserNotFoundException;
 import com.truckplast.analyzer.mapper.UserMapper;
 import com.truckplast.analyzer.repository.UserRepository;
@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAll() {
 
-        List<User> list = userRepository.findAll();
+        List<User> users = userRepository.findAll();
 
-        return mapper.mapToUserDtoList(list);
+        return mapper.mapToUserDtoList(users);
     }
 
     @Override
