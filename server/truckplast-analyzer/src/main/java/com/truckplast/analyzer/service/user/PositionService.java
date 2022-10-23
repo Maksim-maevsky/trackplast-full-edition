@@ -15,4 +15,6 @@ public interface PositionService {
     PositionDto update(PositionDto positionDto);
 
     void delete(Long id);
+
+    boolean isPositionExist(PositionDto positionDto);
 }

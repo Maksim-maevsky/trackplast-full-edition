@@ -1,6 +1,7 @@
 package com.truckplast.analyzer.controller;
 
 import com.truckplast.analyzer.dto.UserDto;
+import com.truckplast.analyzer.facade.UserFacade;
 import com.truckplast.analyzer.service.user.UserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
+    private final UserFacade userFacade;
 
     @GetMapping
     public List<UserDto> getAll(){
@@ -31,7 +34,7 @@ public class UserController {
     @PostMapping
     public UserDto create(@RequestBody UserDto userDto){
 
-        return userService.create(userDto);
+        return userFacade.create(userDto);
     }
 
     @PutMapping

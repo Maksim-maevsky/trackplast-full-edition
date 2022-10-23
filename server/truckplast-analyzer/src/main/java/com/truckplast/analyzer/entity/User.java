@@ -1,4 +1,4 @@
-package com.truckplast.analyzer.entity.part;
+package com.truckplast.analyzer.entity;
 
 import lombok.*;
 
@@ -25,14 +25,14 @@ public class User {
     @Column(name = "mail_address")
     private String mailAddress;
 
-    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH})
     private Position position;
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinTable(
             name = "user_role",
-            joinColumns = {@JoinColumn(name = "role_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private Set<Role> roles;
 
