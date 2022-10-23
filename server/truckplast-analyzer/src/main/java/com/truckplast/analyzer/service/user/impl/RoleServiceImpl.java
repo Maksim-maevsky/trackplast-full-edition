@@ -2,6 +2,7 @@ package com.truckplast.analyzer.service.user.impl;
 
 import com.truckplast.analyzer.dto.RoleDto;
 import com.truckplast.analyzer.entity.Role;
+import com.truckplast.analyzer.exeption_handler.exception.NoSuchRoleException;
 import com.truckplast.analyzer.exeption_handler.exception.RoleNotFoundException;
 import com.truckplast.analyzer.mapper.RoleMapper;
 import com.truckplast.analyzer.repository.RoleRepository;
@@ -68,7 +69,7 @@ public class RoleServiceImpl implements RoleService {
 
             if (roleRepository.findByName(role.getName()).isEmpty()){
 
-                return false;
+                throw new NoSuchRoleException("You entered wrong role(s).");
             }
         }
 

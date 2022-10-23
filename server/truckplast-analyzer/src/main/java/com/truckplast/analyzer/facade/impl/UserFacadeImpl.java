@@ -43,15 +43,9 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public UserDto create(UserDto userDto) {
 
-        if (!roleService.isRolesExist(userDto.getRoles())){
+        roleService.isRolesExist(userDto.getRoles());
 
-            throw new NoSuchRoleException("You entered wrong role(s).");
-        }
-
-        if (!positionService.isPositionExist(userDto.getPosition())){
-
-            throw new NoSuchPositionException("You entered wrong position.");
-        }
+        positionService.isPositionExist(userDto.getPosition());
 
         return userService.create(userDto);
     }

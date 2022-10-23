@@ -2,6 +2,8 @@ package com.truckplast.analyzer.service.user.impl;
 
 import com.truckplast.analyzer.dto.UserDto;
 import com.truckplast.analyzer.entity.User;
+import com.truckplast.analyzer.exeption_handler.exception.NoSuchPositionException;
+import com.truckplast.analyzer.exeption_handler.exception.NoSuchRoleException;
 import com.truckplast.analyzer.exeption_handler.exception.UserNotFoundException;
 import com.truckplast.analyzer.mapper.UserMapper;
 import com.truckplast.analyzer.repository.UserRepository;
