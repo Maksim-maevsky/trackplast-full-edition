@@ -9,6 +9,9 @@ databaseChangeLog:
       file: /sql/fill-positions-table.sql
       relativeToChangelogFile: true
   - include:
+      file: /sql/fill-companies-table.sql
+      relativeToChangelogFile: true
+  - include:
       file: /sql/add-directors.sql
       relativeToChangelogFile: true
   - include:

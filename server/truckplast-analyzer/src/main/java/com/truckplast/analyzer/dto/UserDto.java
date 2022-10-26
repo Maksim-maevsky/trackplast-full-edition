@@ -1,5 +1,6 @@
 package com.truckplast.analyzer.dto;
 
+import com.truckplast.analyzer.entity.Company;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,8 @@ public class UserDto {
     private PositionDto position;
 
     private Set<RoleDto> roles;
+
+    private Company company;
 
     private boolean isBlock;
 }

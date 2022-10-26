@@ -35,11 +35,15 @@ databaseChangeLog:
                     constraints:
                       nullable: false
                 - column:
+                    name: company_id
+                    type: BIGINT
+                    constraints:
+                      nullable: false
+                - column:
                     name: is_block
                     type: BOOLEAN
                     constraints:
                       nullable: false
-
 
 
     - changeSet:
@@ -110,6 +114,39 @@ databaseChangeLog:
                     type: BIGINT
                     constraints:
                       nullable: false
+
+
+    - changeSet:
+        id: 26102022-create-companies-table
+        author: bogdan_lopatenko
+        changes:
+          - createTable:
+              tableName: companies
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    autoIncrement: true
+                    constraints:
+                      nullable: false
+                      unique: true
+                      primaryKey: true
+                - column:
+                    name: name
+                    type: VARCHAR(50)
+                    constraints:
+                      nullable: false
+
+    - changeSet:
+        id: 26102022-add-ForeignKeyConstraint-companies-to-users
+        author: bogdan_lopatenko
+        changes:
+          - addForeignKeyConstraint:
+              baseColumnNames: company_id
+              baseTableName: users
+              constraintName: fk_user_companies
+              referencedColumnNames: id
+              referencedTableName: companies
 
     - changeSet:
         id: 03102022-add-ForeignKeyConstraint-positions-to-users

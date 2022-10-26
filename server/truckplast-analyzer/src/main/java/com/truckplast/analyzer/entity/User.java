@@ -36,6 +36,9 @@ public class User {
     )
     private Set<Role> roles;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH})
+    private Company company;
+
     @Column(name = "is_block")
     private boolean isBlock;
 }
