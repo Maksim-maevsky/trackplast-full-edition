@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "companies")
@@ -19,5 +20,8 @@ public class Company {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH})
+    private Set<User> users;
 
 }
