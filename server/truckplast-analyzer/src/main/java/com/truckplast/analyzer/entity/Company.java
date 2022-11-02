@@ -1,8 +1,6 @@
 package com.truckplast.analyzer.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,6 +10,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"users"})
+@EqualsAndHashCode(exclude = {"users"})
 public class Company {
 
     @Id
@@ -22,6 +22,7 @@ public class Company {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH})
+    @JoinColumn(name = "company_id")
     private Set<User> users;
 
 }

@@ -1,18 +1,18 @@
 package com.truckplast.analyzer.facade;
 
-import com.truckplast.analyzer.dto.UserDto;
+import com.truckplast.analyzer.dto.user.FullUserDto;
 
 import java.util.List;
 
 public interface UserFacade {
 
-    List<UserDto> getAll();
+    List<FullUserDto> getAll();
 
-    UserDto getById(Long id);
+    FullUserDto getById(Long id);
 
-    UserDto create(UserDto userDto);
+    FullUserDto create(FullUserDto fullUserDto);
 
-    UserDto update(UserDto userDto);
+    FullUserDto update(FullUserDto fullUserDto);
 
     void delete(Long id);
 }
