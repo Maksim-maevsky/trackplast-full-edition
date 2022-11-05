@@ -1,9 +1,7 @@
 package com.truckplast.analyzer.service.user.impl;
 
-import com.truckplast.analyzer.dto.UserDto;
+import com.truckplast.analyzer.dto.user.FullUserDto;
 import com.truckplast.analyzer.entity.User;
-import com.truckplast.analyzer.exeption_handler.exception.NoSuchPositionException;
-import com.truckplast.analyzer.exeption_handler.exception.NoSuchRoleException;
 import com.truckplast.analyzer.exeption_handler.exception.UserNotFoundException;
 import com.truckplast.analyzer.mapper.UserMapper;
 import com.truckplast.analyzer.repository.UserRepository;
@@ -24,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper mapper;
 
     @Override
-    public UserDto getById(Long id) {
+    public FullUserDto getById(Long id) {
 
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not founded."));
 
@@ -32,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getAll() {
+    public List<FullUserDto> getAll() {
 
         List<User> users = userRepository.findAll();
 
@@ -40,9 +38,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto create(UserDto userDto) {
+    public FullUserDto create(FullUserDto fullUserDto) {
 
-        User user = mapper.toUser(userDto);
+        User user = mapper.toUser(fullUserDto);
 
         User savedUser = userRepository.save(user);
 
@@ -50,9 +48,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto update(UserDto userDto) {
+    public FullUserDto update(FullUserDto fullUserDto) {
 
-        User user = mapper.toUser(userDto);
+        User user = mapper.toUser(fullUserDto);
 
         User savedUser = userRepository.save(user);
 

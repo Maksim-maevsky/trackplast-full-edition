@@ -1,6 +1,6 @@
 package com.truckplast.analyzer.mapper;
 
-import com.truckplast.analyzer.dto.UserDto;
+import com.truckplast.analyzer.dto.user.FullUserDto;
 import com.truckplast.analyzer.entity.User;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -12,14 +12,14 @@ import java.util.List;
 public interface UserMapper {
 
     @Named(value = "userDto")
-    User toUser(UserDto userDto);
+    User toUser(FullUserDto fullUserDto);
 
     @Named(value = "userEntity")
-    UserDto toUserDto(User user);
+    FullUserDto toUserDto(User user);
 
     @IterableMapping(qualifiedByName = "userDto")
-    List<User> mapToUserList(List<UserDto> userDtoList);
+    List<User> mapToUserList(List<FullUserDto> fullUserDtoList);
 
     @IterableMapping(qualifiedByName = "userEntity")
-    List<UserDto> mapToUserDtoList(List<User> userList);
+    List<FullUserDto> mapToUserDtoList(List<User> userList);
 }

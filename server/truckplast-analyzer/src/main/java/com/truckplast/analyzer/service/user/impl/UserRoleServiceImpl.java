@@ -1,6 +1,5 @@
 package com.truckplast.analyzer.service.user.impl;
 
-import com.truckplast.analyzer.dto.UserDto;
 import com.truckplast.analyzer.dto.UserRoleDto;
 import com.truckplast.analyzer.entity.UserRole;
 import com.truckplast.analyzer.exeption_handler.exception.UserRoleNotFoundException;

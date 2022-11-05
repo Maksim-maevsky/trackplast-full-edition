@@ -1,19 +1,19 @@
 package com.truckplast.analyzer.service.user;
 
 
-import com.truckplast.analyzer.dto.UserDto;
+import com.truckplast.analyzer.dto.user.FullUserDto;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserDto getById(Long id);
+    FullUserDto getById(Long id);
 
-    List<UserDto> getAll();
+    List<FullUserDto> getAll();
 
-    UserDto create(UserDto userDto);
+    FullUserDto create(FullUserDto fullUserDto);
 
-    UserDto update(UserDto userDto);
+    FullUserDto update(FullUserDto fullUserDto);
 
     void delete(Long id);
 

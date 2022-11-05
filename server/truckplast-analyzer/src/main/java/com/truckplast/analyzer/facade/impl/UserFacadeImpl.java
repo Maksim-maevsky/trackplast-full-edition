@@ -1,9 +1,8 @@
 package com.truckplast.analyzer.facade.impl;
 
-import com.truckplast.analyzer.dto.UserDto;
-import com.truckplast.analyzer.exeption_handler.exception.NoSuchPositionException;
-import com.truckplast.analyzer.exeption_handler.exception.NoSuchRoleException;
+import com.truckplast.analyzer.dto.user.FullUserDto;
 import com.truckplast.analyzer.facade.UserFacade;
+import com.truckplast.analyzer.service.user.CompanyService;
 import com.truckplast.analyzer.service.user.PositionService;
 import com.truckplast.analyzer.service.user.RoleService;
 import com.truckplast.analyzer.service.user.UserService;
@@ -27,33 +26,37 @@ public class UserFacadeImpl implements UserFacade {
 
     private final PositionService positionService;
 
+    private final CompanyService companyService;
+
 
     @Override
-    public List<UserDto> getAll() {
+    public List<FullUserDto> getAll() {
 
         return userService.getAll();
     }
 
     @Override
-    public UserDto getById(Long id) {
+    public FullUserDto getById(Long id) {
 
         return userService.getById(id);
     }
 
     @Override
-    public UserDto create(UserDto userDto) {
+    public FullUserDto create(FullUserDto fullUserDto) {
 
-        roleService.isRolesExist(userDto.getRoles());
+        roleService.isRolesExist(fullUserDto.getRoles());
 
-        positionService.isPositionExist(userDto.getPosition());
+        positionService.isPositionExist(fullUserDto.getPosition());
 
-        return userService.create(userDto);
+        companyService.isCompanyExist(fullUserDto.getCompany());
+
+        return userService.create(fullUserDto);
     }
 
     @Override
-    public UserDto update(UserDto userDto) {
+    public FullUserDto update(FullUserDto fullUserDto) {
 
-        return userService.update(userDto);
+        return userService.update(fullUserDto);
     }
 
     @Override
