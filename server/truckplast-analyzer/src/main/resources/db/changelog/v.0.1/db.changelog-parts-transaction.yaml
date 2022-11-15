@@ -18,7 +18,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: part_storage_id
+                  name: part_warehouse_id
                   type: SMALLINT
                   constraints:
                     nullable: false
@@ -45,12 +45,12 @@ databaseChangeLog:
             referencedTableName: parts
 
   - changeSet:
-      id:  14062022-add-ForeignKeyConstraint-part-storage-to-transaction-parts
+      id:  14062022-add-ForeignKeyConstraint-part-warehouse-to-transaction-parts
       author:  maksim_maevsky
       changes:
         - addForeignKeyConstraint:
-            baseColumnNames: part_storage_id
+            baseColumnNames: part_warehouse_id
             baseTableName: transaction_part_infos
-            constraintName: fk_transaction_parts_storages_parts
+            constraintName: fk_transaction_parts_warehouses_parts
             referencedColumnNames: id
-            referencedTableName: part_storages
+            referencedTableName: part_warehouses

@@ -1,4 +1,4 @@
-package com.truckplast.analyzer.entity;
+package com.truckplast.analyzer.entity.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "positions")
+@Table(name = "services")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Position {
+public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,5 +19,4 @@ public class Position {
 
     @Column(name = "name")
     private String name;
-
 }

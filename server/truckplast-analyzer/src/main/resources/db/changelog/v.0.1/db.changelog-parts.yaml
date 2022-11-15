@@ -54,7 +54,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: part_storage_id
+                  name: part_warehouse_id
                   type: SMALLINT
                   constraints:
                     nullable: false
@@ -135,11 +135,11 @@ databaseChangeLog:
                     nullable: false
 
   - changeSet:
-      id: 14062022-add-part-storages
+      id: 14062022-add-part-warehouses
       author: maksim_maevsky
       changes:
         - createTable:
-            tableName: part_storages
+            tableName: part_warehouses
             columns:
               - column:
                   name: id
@@ -177,15 +177,15 @@ databaseChangeLog:
                     nullable: false
 
   - changeSet:
-      id:  14062022-add-ForeignKeyConstraint-part-storage-to-part-infos
+      id:  14062022-add-ForeignKeyConstraint-part-warehouse-to-part-infos
       author:  maksim_maevsky
       changes:
         - addForeignKeyConstraint:
-            baseColumnNames: part_storage_id
+            baseColumnNames: part_warehouse_id
             baseTableName: part_infos
-            constraintName: fk_part_info_storage_part
+            constraintName: fk_part_info_warehouse_part
             referencedColumnNames: id
-            referencedTableName: part_storages
+            referencedTableName: part_warehouses
 
   - changeSet:
       id:  14062022-add-ForeignKeyConstraint-part-id-to-part-infos
@@ -239,12 +239,12 @@ databaseChangeLog:
             tableName: brands
 
   - changeSet:
-      id: 14062022-add-part-storage
+      id: 14062022-add-part-warehouse
       author: maksim_maevsky
       changes:
         sqlFile:
           dbms:  'postgresql'
-          path:  db\changelog\v.0.1\sql-import\import-part-storage.sql
+          path:  db\changelog\v.0.1\sql-import\import-part-warehouse.sql
           stripComments:  true
 
   - changeSet:

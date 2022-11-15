@@ -2,7 +2,7 @@ package com.truckplast.analyzer.service.user.impl;
 
 
 import com.truckplast.analyzer.dto.PositionDto;
-import com.truckplast.analyzer.entity.Position;
+import com.truckplast.analyzer.entity.user.Position;
 import com.truckplast.analyzer.exeption_handler.exception.NoSuchPositionException;
 import com.truckplast.analyzer.exeption_handler.exception.PositionNotFoundException;
 import com.truckplast.analyzer.mapper.PositionMapper;

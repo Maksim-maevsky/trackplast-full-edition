@@ -1,7 +1,7 @@
 package com.truckplast.analyzer.mapper;
 
 import com.truckplast.analyzer.dto.user.FullUserDto;
-import com.truckplast.analyzer.entity.User;
+import com.truckplast.analyzer.entity.user.User;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
