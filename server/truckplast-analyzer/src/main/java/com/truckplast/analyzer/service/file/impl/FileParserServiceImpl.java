@@ -7,7 +7,7 @@ import com.truckplast.analyzer.entity.FileInfo;
 import com.truckplast.analyzer.entity.part.Brand;
 import com.truckplast.analyzer.entity.part.Part;
 import com.truckplast.analyzer.entity.part.PartInfo;
-import com.truckplast.analyzer.entity.part.PartStorage;
+import com.truckplast.analyzer.entity.part.PartWarehouse;
 import com.truckplast.analyzer.exeption_handler.exception.EmptyFileNotFoundException;
 import com.truckplast.analyzer.exeption_handler.exception.WorkBookCreationIOException;
 import com.truckplast.analyzer.exeption_handler.exception.WrongPartStorageKeyException;
@@ -73,10 +73,10 @@ public class FileParserServiceImpl implements FileParserService {
         File file = FileUtil.getFile(filePath, fileName, fileInfo.getFileBytes());
 
         String storageKey = fileInfo.getFileName();
-        PartStorage partStorage = getPartStorage(storageKey);
+        PartWarehouse partWarehouse = getPartStorage(storageKey);
 
-        List<PartInfo> parts = tryToGetPartInfoList(partStorage, file);
-        deletePreviousPartsAndSaveCurrent(parts, partStorage.getId());
+        List<PartInfo> parts = tryToGetPartInfoList(partWarehouse, file);
+        deletePreviousPartsAndSaveCurrent(parts, partWarehouse.getId());
 
     }
 
@@ -87,12 +87,12 @@ public class FileParserServiceImpl implements FileParserService {
 
     private void deletePreviousPartsAndSaveCurrent(List<PartInfo> partInfoList, short partStorageId) {
 
-        partInfoRepository.deleteByPartStorageId(partStorageId);
+        partInfoRepository.deleteByPartWarehouseId(partStorageId);
         partInfoRepository.saveAll(partInfoList);
 
     }
 
-    private List<PartInfo> tryToGetPartInfoList(PartStorage partStorage, File file) {
+    private List<PartInfo> tryToGetPartInfoList(PartWarehouse partWarehouse, File file) {
 
         List<PartInfo> partInfos = new ArrayList<>();
 
@@ -102,7 +102,7 @@ public class FileParserServiceImpl implements FileParserService {
 
              Workbook workbook = WorkbookFactory.create(fileStream)) {
 
-            iterateAllRows(partStorage, partInfos, workbook);
+            iterateAllRows(partWarehouse, partInfos, workbook);
 
             return partInfos;
 
@@ -122,7 +122,7 @@ public class FileParserServiceImpl implements FileParserService {
     }
 
     @SneakyThrows
-    private void iterateAllRows(PartStorage partStorage, List<PartInfo> partInfos, Workbook workbook) {
+    private void iterateAllRows(PartWarehouse partWarehouse, List<PartInfo> partInfos, Workbook workbook) {
 
         Sheet firstSheet = workbook.getSheetAt(ParserConstant.FIRST_SHEET);
         Map<String, Brand> brandMap = new HashMap<>();
@@ -138,7 +138,7 @@ public class FileParserServiceImpl implements FileParserService {
 
             if (partInfo != null) {
 
-                partInfo.setPartStorage(partStorage);
+                partInfo.setPartWarehouse(partWarehouse);
                 partInfos.add(partInfo);
 
             }
@@ -151,7 +151,7 @@ public class FileParserServiceImpl implements FileParserService {
 
     }
 
-    private PartStorage getPartStorage(String storageKey) {
+    private PartWarehouse getPartStorage(String storageKey) {
 
         return Optional.of(PartStorageConstant.PART_STORAGE_MAP.get(storageKey))
                 .orElseThrow(() -> new WrongPartStorageKeyException("Wrong part storage key " + storageKey));

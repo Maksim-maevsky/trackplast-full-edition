@@ -1,7 +1,7 @@
 package com.truckplast.analyzer.service.user.impl;
 
 import com.truckplast.analyzer.dto.user.FullUserDto;
-import com.truckplast.analyzer.entity.User;
+import com.truckplast.analyzer.entity.user.User;
 import com.truckplast.analyzer.exeption_handler.exception.UserNotFoundException;
 import com.truckplast.analyzer.mapper.UserMapper;
 import com.truckplast.analyzer.repository.UserRepository;

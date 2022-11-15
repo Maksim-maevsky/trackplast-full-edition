@@ -35,8 +35,8 @@ public class PartServiceImpl implements PartService {
         refillRequestDto.getCurrentPartStorageNameSet().forEach(this::checkPartStorageName);
         refillRequestDto.getTargetPartStorageNameSet().forEach(this::checkPartStorageName);
 
-        List<PartInfo> targetPartInfoStorageList = partInfoRepository.findAllByPartStorageName(refillRequestDto.getTargetPartStorageNameSet());
-        List<PartInfo> currentPartInfoStorageList = partInfoRepository.findAllByPartStorageName(refillRequestDto.getCurrentPartStorageNameSet());
+        List<PartInfo> targetPartInfoStorageList = partInfoRepository.findAllByPartWarehouseName(refillRequestDto.getTargetPartStorageNameSet());
+        List<PartInfo> currentPartInfoStorageList = partInfoRepository.findAllByPartWarehouseName(refillRequestDto.getCurrentPartStorageNameSet());
 
         PartStorageInfo targetPartStorageInfo = getPartStorageInfoDto(refillRequestDto.getTargetPartStorageNameSet(), targetPartInfoStorageList);
         PartStorageInfo currentPartStorageInfo = getPartStorageInfoDto(refillRequestDto.getCurrentPartStorageNameSet(), currentPartInfoStorageList);

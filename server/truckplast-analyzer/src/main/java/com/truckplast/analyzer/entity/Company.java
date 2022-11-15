@@ -1,5 +1,6 @@
 package com.truckplast.analyzer.entity;
 
+import com.truckplast.analyzer.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;

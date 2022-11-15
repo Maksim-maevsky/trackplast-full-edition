@@ -11,11 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "part_storages")
+@Table(name = "part_warehouses")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PartStorage {
+public class PartWarehouse {
 
     @Id
     private short id;

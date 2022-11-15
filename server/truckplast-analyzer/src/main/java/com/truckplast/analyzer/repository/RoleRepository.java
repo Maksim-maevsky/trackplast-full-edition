@@ -1,6 +1,6 @@
 package com.truckplast.analyzer.repository;
 
-import com.truckplast.analyzer.entity.Role;
+import com.truckplast.analyzer.entity.user.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

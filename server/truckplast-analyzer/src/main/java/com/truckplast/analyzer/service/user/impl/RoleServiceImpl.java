@@ -1,7 +1,7 @@
 package com.truckplast.analyzer.service.user.impl;
 
 import com.truckplast.analyzer.dto.RoleDto;
-import com.truckplast.analyzer.entity.Role;
+import com.truckplast.analyzer.entity.user.Role;
 import com.truckplast.analyzer.exeption_handler.exception.NoSuchRoleException;
 import com.truckplast.analyzer.exeption_handler.exception.RoleNotFoundException;
 import com.truckplast.analyzer.mapper.RoleMapper;

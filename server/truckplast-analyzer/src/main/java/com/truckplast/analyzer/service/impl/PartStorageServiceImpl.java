@@ -2,7 +2,7 @@ package com.truckplast.analyzer.service.impl;
 
 import com.truckplast.analyzer.dto.PartStorageDto;
 import com.truckplast.analyzer.dto.PartStorageInfoDto;
-import com.truckplast.analyzer.entity.part.PartStorage;
+import com.truckplast.analyzer.entity.part.PartWarehouse;
 import com.truckplast.analyzer.mapper.PartStorageMapper;
 import com.truckplast.analyzer.repository.PartInfoRepository;
 import com.truckplast.analyzer.repository.PartStorageRepository;
@@ -34,23 +34,23 @@ public class PartStorageServiceImpl implements PartStorageService {
 
         log.info("Try get all partStorages from db");
 
-        List<PartStorage> partStorages = partStorageRepository.findAll();
+        List<PartWarehouse> partWarehouses = partStorageRepository.findAll();
 
-        return partStorageMapper.mapPartStorageDtoListFromPartStorageList(partStorages);
+        return partStorageMapper.mapPartStorageDtoListFromPartStorageList(partWarehouses);
     }
 
     @Override
     public List<PartStorageInfoDto> getStorageInfo(){
 
-        List<PartStorage> partStorageList = partStorageRepository.findAll();
+        List<PartWarehouse> partWarehouseList = partStorageRepository.findAll();
         List<PartStorageInfoDto> partStorageInfoDtoList = new ArrayList<>();
 
-        for(PartStorage ps : partStorageList){
+        for(PartWarehouse ps : partWarehouseList){
 
             PartStorageInfoDto partStorageInfoDto = new PartStorageInfoDto();
 
-            int partCount = partInfoRepository.countAllByPartStorageId(ps.getId());
-            Optional<Double> volumeAtALowPrice = partInfoRepository.countAllPriceByPartStorageId(ps.getId());
+            int partCount = partInfoRepository.countAllByPartWarehouseId(ps.getId());
+            Optional<Double> volumeAtALowPrice = partInfoRepository.countAllPriceByPartWarehouseId(ps.getId());
             if(volumeAtALowPrice.isPresent()){
 
                 partStorageInfoDto.setVolumeAtALowPrice(volumeAtALowPrice.get());

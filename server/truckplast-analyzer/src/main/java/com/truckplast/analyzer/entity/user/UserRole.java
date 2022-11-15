@@ -1,4 +1,4 @@
-package com.truckplast.analyzer.entity;
+package com.truckplast.analyzer.entity.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,17 +7,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "user_role")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "user_id")
+    private Long userId;
 
+    @Column(name = "role_id")
+    private Long roleId;
 }

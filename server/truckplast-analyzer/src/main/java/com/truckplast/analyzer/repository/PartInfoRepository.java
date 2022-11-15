@@ -13,15 +13,15 @@ import java.util.UUID;
 
 public interface PartInfoRepository extends JpaRepository<PartInfo, UUID> {
 
-    @Query("SELECT distinct pi FROM PartInfo pi WHERE pi.partStorage.name IN :partStorageNameSet")
-    List<PartInfo> findAllByPartStorageName(Set<String> partStorageNameSet);
+    @Query("SELECT distinct pi FROM PartInfo pi WHERE pi.partWarehouse.name IN :partWarehouseNameSet")
+    List<PartInfo> findAllByPartWarehouseName(Set<String> partWarehouseNameSet);
 
     @Transactional
-    void deleteByPartStorageId(short id);
+    void deleteByPartWarehouseId(short id);
 
-    int countAllByPartStorageId(short id);
+    int countAllByPartWarehouseId(short id);
 
-    @Query("SELECT SUM(pi.price * pi.count) FROM PartInfo pi WHERE pi.partStorage.id = :id")
-    Optional<Double> countAllPriceByPartStorageId(Short id);
+    @Query("SELECT SUM(pi.price * pi.count) FROM PartInfo pi WHERE pi.partWarehouse.id = :id")
+    Optional<Double> countAllPriceByPartWarehouseId(Short id);
 
 }

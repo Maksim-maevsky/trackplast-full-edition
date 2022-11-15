@@ -3,10 +3,6 @@ package com.truckplast.analyzer.entity.part;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.builder.EqualsExclude;
-import org.apache.commons.lang3.builder.HashCodeExclude;
-import org.apache.commons.lang3.builder.ToStringExclude;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -33,8 +29,8 @@ public class PartInfo {
     private int count;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE})
-    @JoinColumn(name = "part_storage_id")
-    private PartStorage partStorage;
+    @JoinColumn(name = "part_warehouse_id")
+    private PartWarehouse partWarehouse;
 
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})

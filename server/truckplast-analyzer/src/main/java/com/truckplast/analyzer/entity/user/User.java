@@ -1,5 +1,6 @@
-package com.truckplast.analyzer.entity;
+package com.truckplast.analyzer.entity.user;
 
+import com.truckplast.analyzer.entity.Company;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
